@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootflowabledemo.mapper.PersonMapper">
+    <resultMap id="BaseResultMap" type="com.example.springbootflowabledemo.po.Person">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="first_name" jdbcType="VARCHAR" property="firstName"/>
+        <result column="last_name" jdbcType="VARCHAR" property="lastName"/>
+        <result column="birth_date" jdbcType="DATE" property="birthDate"/>
+    </resultMap>
+
+    <sql id="base_column_list">
+        id,username,first_name,last_name,birth_date
+    </sql>
+
+    <select id="findAll" resultType="com.example.springbootflowabledemo.po.Person">
+        select id,username,first_name,last_name,birth_date from person
+    </select>
+
+    <select id="findByUsername" parameterType="java.lang.String" resultType="com.example.springbootflowabledemo.po.Person">
+        select id,username,first_name,last_name,birth_date from person where username = #{username}
+    </select>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into person (username,first_name,last_name,birth_date) values(#{person.username},#{person.firstName},#{person.lastName},#{person.birthDate});
+    </insert>
+</mapper>
